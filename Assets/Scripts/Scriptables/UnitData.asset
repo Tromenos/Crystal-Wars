@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddaf63adb76d0f94daa26119a245d717, type: 3}
   m_Name: UnitData
   m_EditorClassIdentifier: 
-  _hp: 0
-  _bp: 0
-  _ap: 0
-  buildSpeed: 1
-  moveSpeed: 1
+  _healthPoints: 1
+  _buildPoints: 1
+  _attackPoints: 1
+  _buildSpeed: 1
+  _moveSpeed: 10
   _teamId: 0
