@@ -12,6 +12,13 @@ namespace Prototype
 
         #region Methods
 
+        public BuildState(Agent agent, UnitCommand startCommand)
+
+           : base(agent, startCommand)
+        {
+
+        }
+
         public override void StateUpdate()
         {
             base.StateUpdate();
@@ -24,6 +31,7 @@ namespace Prototype
 
         protected override void OnStateStay()
         {
+            //Debug.Log($"I Build");
             base.OnStateStay();
         }
 

@@ -1,46 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEditorInternal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Prototype
 {
-
+    public enum UnitCommand { none = 0, build = 1, attack = 2 }
     public class StateMachine : MonoBehaviour
     {
         #region Variables / Properties
 
-        private enum States { Idle = 0, Build = 1, Attack = 2 }
-        public enum UnitCommand { none = 0, build = 1, attack = 2 }
+        //private enum States { Idle = 0, Build = 1, Attack = 2 }
+
         private State _currentState;
-        private UnitCommand _receivedCommand;
-        public UnitCommand _SetUnitCommand { set { _receivedCommand = value; } }
+        private State _nextState;
+        public State SetNextState { set { _nextState = value; } }
 
         #endregion
 
         #region Methods
 
+
         private void Update()
         {
             _currentState.StateUpdate();
+
         }
 
-        private void ChangeState()
+        public void InitStateMachine()
         {
-            //Command inc
-            //_currentstate.exit aufrufen
-
-
-
-            //switch ((int)newState)
+            //Debug.Log($"Ma component {GetComponent<Agent>()}");
+            if (this.GetComponent<Agent>() != null)
+            {
+                _currentState = new IdleState(this.GetComponent<Agent>(), UnitCommand.none);
+                _nextState = _currentState;
+            }
+            //else
             //{
-            //    case 0: return new IdleState();
-            //    case 1: return new BuildState();
-            //    case 2: return new AttackState();
-            //    default: return new IdleState();
+            //    this.enabled = false;
             //}
-
+        }
+        public void ChangeState(UnitCommand newCommand)
+        {
+            if (_currentState != null)
+            {
+                _currentState.UnitCommand = newCommand;
+                if (_nextState != _currentState)
+                {
+                    _currentState = _nextState;
+                }
+            }
         }
     }
     #endregion

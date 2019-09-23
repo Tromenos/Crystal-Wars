@@ -11,6 +11,12 @@ namespace Prototype
         #endregion
 
         #region Methods
+        public IdleState(Agent agent, UnitCommand startCommand)
+
+           : base(agent, startCommand)
+        {
+
+        }
 
         public override void StateUpdate()
         {
@@ -24,6 +30,7 @@ namespace Prototype
 
         protected override void OnStateStay()
         {
+            //Debug.Log($"I Idle");
             base.OnStateStay();
         }
 

@@ -12,13 +12,36 @@ namespace Prototype
         private Vector3 _target;
         private float _distanceToTarget;
 
-        StateMachine
+        StateMachine _controllingMachine;
+        public StateMachine GetControllingMachine { get { return _controllingMachine; } }
 
         #endregion
 
         #region Methods
 
+        private void Awake()
+        {
+            //Debug.Log($"Good Morning Sir, I am {this.gameObject.name}");
 
+            _controllingMachine = gameObject.AddComponent<StateMachine>();
+            _controllingMachine.InitStateMachine();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKey(KeyCode.I))
+            {
+                _controllingMachine.ChangeState(UnitCommand.none);
+            }
+            if (Input.GetKey(KeyCode.B))
+            {
+                _controllingMachine.ChangeState(UnitCommand.build);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                _controllingMachine.ChangeState(UnitCommand.attack);
+            }
+        }
 
         #endregion
     }
