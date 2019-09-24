@@ -1,6 +1,15 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Art/Materials/Plane.mat.meta
 guid: 541af5d3a282a584891e71f40b7774de
 NativeFormatImporter:
+=======
+<<<<<<< HEAD
+guid: c429f05a78100a84b88d073b4fc4d696
+=======
+guid: 7ea1387f4dd08e343845aee5b762bdff
+>>>>>>> Unit
+TextScriptImporter:
+>>>>>>> Crystal:Assets/Art/Materials/File.txt.meta
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 
