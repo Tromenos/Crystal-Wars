@@ -8,7 +8,7 @@ namespace Prototype
     {
         #region Variables / Properties
 
-        private Unit _myUnit;
+        private IControllable _myUnit;
         private Vector3 _target;
         private float _distanceToTarget;
 
@@ -29,18 +29,19 @@ namespace Prototype
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.I))
-            {
-                _controllingMachine.ChangeState(UnitCommand.none);
-            }
-            if (Input.GetKey(KeyCode.B))
-            {
-                _controllingMachine.ChangeState(UnitCommand.build);
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                _controllingMachine.ChangeState(UnitCommand.attack);
-            }
+            //For Testing Purpose only
+            //if (Input.GetKey(KeyCode.I))
+            //{
+            //    _controllingMachine.ChangeState(UnitCommand.none);
+            //}
+            //if (Input.GetKey(KeyCode.B))
+            //{
+            //    _controllingMachine.ChangeState(UnitCommand.build);
+            //}
+            //if (Input.GetKey(KeyCode.A))
+            //{
+            //    _controllingMachine.ChangeState(UnitCommand.attack);
+            //}
         }
 
         #endregion
