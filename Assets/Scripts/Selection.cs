@@ -7,13 +7,13 @@ namespace Prototype
 {
     public static class Selection
     {
-        private static List<IControllable> _selected = new List<IControllable>();
+        private static List<Agent> _selected = new List<Agent>();
 
         public static Camera Cam;
         public static float SelectionRadius = 15f;
         public static int SelectionLayer;
 
-        public static IControllable[] Selected => _selected?.ToArray();
+        public static Agent[] Selected => _selected?.ToArray();
 
         public static void CastSphereSelection(RaycastHit hit)
         {
@@ -24,17 +24,17 @@ namespace Prototype
 
         private static void AddSelection(Collider[] selection)
         {
-            if(selection != null && selection.Length >= 1)
+            if (selection != null && selection.Length >= 1)
             {
-                foreach(var collider in selection)
+                foreach (var collider in selection)
                 {
-                    var unit = collider.GetComponent<Unit>();
+                    var unit = collider.GetComponent<Agent>();
 
-                    if(unit)
+                    if (unit)
                         _selected.Add(unit);
                 }
             }
-            else if(selection.Length <= 0)
+            else if (selection.Length <= 0)
                 _selected.Clear();
         }
 

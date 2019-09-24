@@ -14,6 +14,7 @@ namespace Prototype
 
         StateMachine _controllingMachine;
         public StateMachine GetControllingMachine { get { return _controllingMachine; } }
+        public Vector3 Target { get { return _target; } set { _target = value; } }
 
         #endregion
 
@@ -22,7 +23,8 @@ namespace Prototype
         private void Awake()
         {
             //Debug.Log($"Good Morning Sir, I am {this.gameObject.name}");
-
+            _myUnit = GetComponent<IControllable>();
+            Debug.Log($"MyUnit {_myUnit}");
             _controllingMachine = gameObject.AddComponent<StateMachine>();
             _controllingMachine.InitStateMachine();
         }
@@ -42,6 +44,11 @@ namespace Prototype
             //{
             //    _controllingMachine.ChangeState(UnitCommand.attack);
             //}
+        }
+
+        public void MoveTo()
+        {
+            _myUnit.MoveTo(_target);
         }
 
         #endregion

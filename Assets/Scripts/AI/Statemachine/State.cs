@@ -62,6 +62,7 @@ namespace Prototype
                 case 0: _agent.GetControllingMachine.SetNextState = new IdleState(_agent, _newUnitCommand); break;
                 case 1: _agent.GetControllingMachine.SetNextState = new BuildState(_agent, _newUnitCommand); break;
                 case 2: _agent.GetControllingMachine.SetNextState = new AttackState(_agent, _newUnitCommand); break;
+                case 3: _agent.GetControllingMachine.SetNextState = new MoveState(_agent, _newUnitCommand); break;
                 default: Debug.Log("new idle"); _agent.GetControllingMachine.SetNextState = new IdleState(_agent, _newUnitCommand); break;
             }
         }

@@ -21,6 +21,8 @@ namespace Prototype
 
         public byte _GetTeamID { get { return _teamID; } }
 
+        [SerializeField]
+        UnitData _myData;
 
         #endregion
 
@@ -28,6 +30,7 @@ namespace Prototype
 
         private void Start()
         {
+            Unit.Data = _myData;
             _currentHealth = _maxHealth;
             _isSpawning = true;
             StartCoroutine(Spawning());

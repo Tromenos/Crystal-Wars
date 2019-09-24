@@ -6,7 +6,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Prototype
 {
-    public enum UnitCommand { none = 0, build = 1, attack = 2 }
+    public enum UnitCommand { none = 0, build = 1, attack = 2, move = 3 }
     public class StateMachine : MonoBehaviour
     {
         #region Variables / Properties
