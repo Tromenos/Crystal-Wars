@@ -9,13 +9,14 @@ namespace Prototype
         #region Variables / Properties
 
         private byte _teamID;
-        private readonly int _maxHealth;
+        private readonly int _maxHealth = 1;
         private int _currentHealth;
         private float _spawnrate;
 
+        [SerializeField]
         private Unit unitPrefab;
 
-        private bool _isBase;
+        private bool _isBase = false;
         private bool _isSpawning;
 
         public byte _GetTeamID { get { return _teamID; } }
@@ -32,6 +33,14 @@ namespace Prototype
             StartCoroutine(Spawning());
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                TakeDamage(1);
+            }
+        }
+
         private IEnumerator Spawning()
         {
             while (_isSpawning == true)
@@ -43,7 +52,7 @@ namespace Prototype
 
         private void SpawnUnit()
         {
-            Instantiate(unitPrefab.gameobject);
+            Instantiate(unitPrefab.gameObject);
         }
 
         public void ConquerCrystal(byte conquerPoints, byte teamID)
@@ -65,11 +74,17 @@ namespace Prototype
 
             if (_currentHealth == 0)
             {
+
                 if (_isBase)
                 {
                     //Insert wincondition here
                 }
-                else { _teamID = 0; }
+
+                else
+                {
+                    _teamID = 0;
+                    _isSpawning = false;
+                }
             }
         }
 

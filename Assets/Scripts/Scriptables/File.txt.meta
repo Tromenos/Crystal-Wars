@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/Scriptables/File.txt.meta
 guid: b2619fd2c5fab3c44a9fa0b7d17be982
+=======
+<<<<<<< HEAD
+guid: e81c047f2a4a5dc42a1dab10c2345a7f
+=======
+guid: 3b2499c71317eaa43b93e58c9b737aca
+>>>>>>> Unit
+>>>>>>> StateMachine:Assets/Art/Shader/File.txt.meta
 TextScriptImporter:
   externalObjects: {}
   userData: 
