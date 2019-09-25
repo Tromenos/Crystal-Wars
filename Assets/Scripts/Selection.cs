@@ -36,7 +36,7 @@ namespace Prototype
                 _selected.Clear();
         }
 
-        public static void CastBoxSelection(Vector3 pos1, Vector3 pos2)
+        public static void CastBoxSelection(float3 pos1, float3 pos2)
         {
             var (center, extents) = CalculateBoxParameter(pos1, pos2);
             var selected = Physics.OverlapBox(center, extents, Quaternion.identity, Data.SelectionLayer);
@@ -45,7 +45,7 @@ namespace Prototype
         }
 
 
-        public static (Vector3 center, Vector3 extents) CalculateBoxParameter(Vector3 pos1, Vector3 pos2)
+        public static (float3 center, float3 extents) CalculateBoxParameter(float3 pos1, float3 pos2)
         {
             var vec = (pos2 - pos1) * 0.5f;
 

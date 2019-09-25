@@ -18,8 +18,8 @@ namespace Prototype
 
         Coroutine _boxSelection = null;
 
-        private Vector3 center;
-        private Vector3 size;
+        private float3 center;
+        private float3 size;
 
         private void Start()
         {
@@ -37,7 +37,7 @@ namespace Prototype
                     Selection.CastSphereSelection(hit);
 
             if(Input.GetMouseButton(0) && hasHit && _selected != null && _boxSelection == null)
-                _boxSelection = StartCoroutine(BoxSelectionRoutine(new Vector3(hit.point.x, -_maxUnitHeight, hit.point.z)));
+                _boxSelection = StartCoroutine(BoxSelectionRoutine(new float3(hit.point.x, -_maxUnitHeight, hit.point.z)));
 
             if(Input.GetMouseButtonDown(1) && hasHit && _boxSelection == null)
                 foreach(var agent in Selection.Selected)
@@ -47,21 +47,21 @@ namespace Prototype
                 }
 
         }
-        private IEnumerator BoxSelectionRoutine(Vector3 pos1)
+        private IEnumerator BoxSelectionRoutine(float3 pos1)
         {
             RaycastHit hit;
             while(Input.GetMouseButton(0))
             {
                 if(Input.GetMouseButtonDown(1))
                 {
-                    center = Vector3.zero;
-                    size = Vector3.zero;
+                    center = float3.zero;
+                    size = float3.zero;
                     StopAllCoroutines();
                     yield break;
                 }
                 if(Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit, _data.PlaneLayer))
                 {
-                    var param = Selection.CalculateBoxParameter(pos1, hit.point + Vector3.up * _maxUnitHeight);
+                    var param = Selection.CalculateBoxParameter(pos1, new float3(hit.point.x, _maxUnitHeight, hit.point.z));
                     center = param.center;
                     size = param.extents;
                 }
@@ -70,9 +70,9 @@ namespace Prototype
 
             if(Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit, _data.PlaneLayer))
             {
-                if(hit.point != pos1)
+                if(hit.point != (Vector3)pos1)
                 {
-                    Vector3 pos2 = hit.point;
+                    float3 pos2 = hit.point;
                     pos2.y = _maxUnitHeight;
 
                     pos1.y = -_maxUnitHeight;
