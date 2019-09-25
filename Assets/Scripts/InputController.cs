@@ -8,34 +8,28 @@ namespace Prototype
     public class InputController : MonoBehaviour
     {
         [SerializeField]
-        private Camera _cam;
+        private Camera _cam = null;
         [SerializeField]
-        private float _selectionRadius = 15f;
-        [SerializeField]
-        private int _selectionLayer, _planeLayer;
+        private SelectionData _data = null;
         [SerializeField]
         private float _maxUnitHeight = 15f;
-        Coroutine _boxSelection = null;
         [SerializeField]
-        private Agent[] _selected;
+        private Agent[] _selected = null;
+
+        Coroutine _boxSelection = null;
 
         private Vector3 center;
         private Vector3 size;
 
         private void Start()
         {
-            _selectionLayer = 1 << _selectionLayer;
-            _planeLayer = 1 << _planeLayer;
-
-            Selection.Cam = _cam;
-            Selection.SelectionLayer = _selectionLayer;
-            Selection.SelectionRadius = _selectionRadius;
+            Selection.Data = _data;
         }
 
         private void FixedUpdate()
         {
             var ray = _cam.ScreenPointToRay(Input.mousePosition);
-            bool hasHit = Physics.Raycast(ray, out RaycastHit hit, _planeLayer);
+            bool hasHit = Physics.Raycast(ray, out RaycastHit hit, _data.PlaneLayer);
 
 
             if(Input.GetMouseButtonDown(0) && hasHit)
@@ -65,7 +59,7 @@ namespace Prototype
                     StopAllCoroutines();
                     yield break;
                 }
-                if(Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit, _planeLayer))
+                if(Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit, _data.PlaneLayer))
                 {
                     var param = Selection.CalculateBoxParameter(pos1, hit.point + Vector3.up * _maxUnitHeight);
                     center = param.center;
@@ -74,15 +68,14 @@ namespace Prototype
                 yield return new WaitForEndOfFrame();
             }
 
-            Vector3 pos2;
-            if(Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit, _planeLayer))
+            if(Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit, _data.PlaneLayer))
             {
                 if(hit.point != pos1)
                 {
-                    pos2 = hit.point;
-                    pos2 = new Vector3(pos2.x, _maxUnitHeight, pos2.z);
+                    Vector3 pos2 = hit.point;
+                    pos2.y = _maxUnitHeight;
 
-                    pos1 = new Vector3(pos1.x, -_maxUnitHeight, pos1.z);
+                    pos1.y = -_maxUnitHeight;
 
                     Selection.CastBoxSelection(pos1, pos2);
                     _selected = Selection.Selected;

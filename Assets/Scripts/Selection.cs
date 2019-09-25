@@ -9,39 +9,37 @@ namespace Prototype
     {
         private static List<Agent> _selected = new List<Agent>();
 
-        public static Camera Cam;
-        public static float SelectionRadius = 15f;
-        public static int SelectionLayer;
+        public static SelectionData Data;
 
         public static Agent[] Selected => _selected?.ToArray();
 
         public static void CastSphereSelection(RaycastHit hit)
         {
-            var selected = Physics.OverlapSphere(hit.point, SelectionRadius, SelectionLayer);
+            var selected = Physics.OverlapSphere(hit.point, Data.SelectionRadius, Data.SelectionLayer);
 
             AddSelection(selected);
         }
 
         private static void AddSelection(Collider[] selection)
         {
-            if (selection != null && selection.Length >= 1)
+            if(selection != null && selection.Length >= 1)
             {
-                foreach (var collider in selection)
+                foreach(var collider in selection)
                 {
                     var unit = collider.GetComponent<Agent>();
 
-                    if (unit)
+                    if(unit)
                         _selected.Add(unit);
                 }
             }
-            else if (selection.Length <= 0)
+            else if(selection.Length <= 0)
                 _selected.Clear();
         }
 
         public static void CastBoxSelection(Vector3 pos1, Vector3 pos2)
         {
             var (center, extents) = CalculateBoxParameter(pos1, pos2);
-            var selected = Physics.OverlapBox(center, extents, Cam.transform.rotation, SelectionLayer);
+            var selected = Physics.OverlapBox(center, extents, Quaternion.identity, Data.SelectionLayer);
 
             AddSelection(selected);
         }
