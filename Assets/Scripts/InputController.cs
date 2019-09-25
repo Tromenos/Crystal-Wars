@@ -38,15 +38,15 @@ namespace Prototype
             bool hasHit = Physics.Raycast(ray, out RaycastHit hit, _planeLayer);
 
 
-            if (Input.GetMouseButtonDown(0) && hasHit)
-                if (_selected != null)
+            if(Input.GetMouseButtonDown(0) && hasHit)
+                if(_selected != null)
                     Selection.CastSphereSelection(hit);
 
-            if (Input.GetMouseButton(0) && hasHit && _selected != null && _boxSelection == null)
+            if(Input.GetMouseButton(0) && hasHit && _selected != null && _boxSelection == null)
                 _boxSelection = StartCoroutine(BoxSelectionRoutine(new Vector3(hit.point.x, -_maxUnitHeight, hit.point.z)));
 
-            if (Input.GetMouseButtonDown(1) && hasHit && _boxSelection == null)
-                foreach (var agent in Selection.Selected)
+            if(Input.GetMouseButtonDown(1) && hasHit && _boxSelection == null)
+                foreach(var agent in Selection.Selected)
                 {
                     agent.Target = hit.point;
                     agent.GetControllingMachine.ChangeState(UnitCommand.move);
@@ -56,15 +56,16 @@ namespace Prototype
         private IEnumerator BoxSelectionRoutine(Vector3 pos1)
         {
             RaycastHit hit;
-            while (Input.GetMouseButton(0))
+            while(Input.GetMouseButton(0))
             {
-                if (Input.GetMouseButtonDown(1))
+                if(Input.GetMouseButtonDown(1))
                 {
                     center = Vector3.zero;
                     size = Vector3.zero;
+                    StopAllCoroutines();
                     yield break;
                 }
-                if (Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit, _planeLayer))
+                if(Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit, _planeLayer))
                 {
                     var param = Selection.CalculateBoxParameter(pos1, hit.point + Vector3.up * _maxUnitHeight);
                     center = param.center;
@@ -74,9 +75,9 @@ namespace Prototype
             }
 
             Vector3 pos2;
-            if (Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit, _planeLayer))
+            if(Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit, _planeLayer))
             {
-                if (hit.point != pos1)
+                if(hit.point != pos1)
                 {
                     pos2 = hit.point;
                     pos2 = new Vector3(pos2.x, _maxUnitHeight, pos2.z);
