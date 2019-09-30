@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Prototype.Agent">
+    <Position X="5.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAUAAAAAAAQAQAAAAAAAACAAQAAIBAACAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\AI\Statemachine\Agent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.AttackState">
+    <Position X="0.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAIAABAAAQAAAAIABAgA=</HashCode>
+      <FileName>Assets\Scripts\AI\Statemachine\AttackState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.BuildState">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAQAAAAIAAAgA=</HashCode>
+      <FileName>Assets\Scripts\AI\Statemachine\BuildState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.IdleState">
+    <Position X="5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAQAAAAIAAAgA=</HashCode>
+      <FileName>Assets\Scripts\AI\Statemachine\IdleState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.MoveState">
+    <Position X="7.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAQAAAAIAAAgA=</HashCode>
+      <FileName>Assets\Scripts\AI\Statemachine\MoveState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.State">
+    <Position X="3.75" Y="0.5" Width="1.75" />
+    <NestedTypes>
+      <Enum Name="Prototype.State.Substates" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\AI\Statemachine\State.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAEAAIAAEAAAAAAAAIAAAAAAQAAAAIAAEgA=</HashCode>
+      <FileName>Assets\Scripts\AI\Statemachine\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.StateMachine">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACAAABIAAAAAAAAAAAAAAAAAAAAAAAAACABA=</HashCode>
+      <FileName>Assets\Scripts\AI\Statemachine\StateMachine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.Crystal">
+    <Position X="10.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAACAAEAAAIBAgABAAAAAAAoACQIAAwAAABAI=</HashCode>
+      <FileName>Assets\Scripts\Base\Crystal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.InputController" Collapsed="true">
+    <Position X="18" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgEAAAABiAAAAAAAIAAAAAIAAAAEEEAAAAQAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\InputController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.SelectionData" Collapsed="true">
+    <Position X="16.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAACAEEAAAAABAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Scriptables\SelectionData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.UnitData" Collapsed="true">
+    <Position X="18" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAABAAAAAAFAEiYSAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Scriptables\UnitData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.Selection" Collapsed="true">
+    <Position X="14.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAgAAAEAAAAAAAAABEAAAAAAgAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Selection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.TesterManager" Collapsed="true">
+    <Position X="14.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\TesterManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prototype.Unit" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAIAAAAAgAABAIAECAIAIABAAAAAEiEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Units\Unit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Struct Name="Prototype.UnitID" Collapsed="true">
+    <Position X="14.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UnitID.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Prototype.IControllable" Collapsed="true">
+    <Position X="14.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAEAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Interfaces\IControllable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Prototype.IInteractable" Collapsed="true">
+    <Position X="16.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Interfaces\IInteractable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Prototype.UnitCommand" Collapsed="true">
+    <Position X="14.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAACAAAAAAAAAAAAAAACAAIAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\AI\Statemachine\StateMachine.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

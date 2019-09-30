@@ -6,8 +6,13 @@ namespace Prototype
 {
     public class Crystal : MonoBehaviour
     {
-        #region Variables / Properties
+        private static Color team0c = Color.red;
+        private static Color team1c = Color.blue;
+        private static Color noTeamc = Color.gray;
 
+        #region Variables / Properties
+        public bool _spawn;
+        [SerializeField]
         private byte _teamID;
         private readonly int _maxHealth = 1;
         private int _currentHealth;
@@ -22,6 +27,8 @@ namespace Prototype
 
         public byte _GetTeamID { get { return _teamID; } }
 
+        private Material _mat;
+
         [SerializeField]
         UnitData _myData;
 
@@ -35,20 +42,23 @@ namespace Prototype
             _attackingEnemiesDic = new Dictionary<UnitID, Unit>();
             _currentHealth = _maxHealth;
             _isSpawning = true;
-            StartCoroutine(Spawning());
+            //StartCoroutine(Spawning());
+            if(_spawn)
+                SpawnUnit();
+            _mat = GetComponent<MeshRenderer>().material;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if(Input.GetKeyDown(KeyCode.F))
             {
-                TakeDamage(1);
+                StopAllCoroutines();
             }
         }
 
         private IEnumerator Spawning()
         {
-            while (_isSpawning == true)
+            while(_isSpawning == true)
             {
                 SpawnUnit();
                 yield return new WaitForSeconds(2);
@@ -63,25 +73,27 @@ namespace Prototype
 
         public void ConquerCrystal(byte conquerPoints, byte teamID)
         {
-            if (_currentHealth < _maxHealth)
+            if(_currentHealth < _maxHealth)
             {
                 _currentHealth += conquerPoints;
-                if (_currentHealth == _maxHealth)
+                if(_currentHealth == _maxHealth)
                 {
                     _teamID = teamID;
+                    if(_mat != null)
+                        _mat.color = Color.red;
                 }
             }
         }
 
         public void TakeDamage(byte damage)
         {
-            if (_currentHealth > 0)
+            if(_currentHealth > 0)
                 _currentHealth -= damage;
 
-            if (_currentHealth == 0)
+            if(_currentHealth == 0)
             {
-
-                if (_isBase)
+                Debug.Log("Deathed");
+                if(_isBase)
                 {
                     //Insert wincondition here
                 }
@@ -90,19 +102,25 @@ namespace Prototype
                 {
                     _teamID = 0;
                     _isSpawning = false;
+                    foreach(var agent in _attackingEnemiesDic)
+                    {
+                        agent.Value?.GetComponent<Agent>()?.GetControllingMachine?.ChangeState(UnitCommand.conquer);
+                    }
                 }
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("TRIGGERED!!!");
             Unit detectedUnit = other.GetComponent<Unit>();
-            if (detectedUnit != null && detectedUnit.TeamID != _teamID && !_attackingEnemiesDic.ContainsKey(detectedUnit.UnitID))
+            if(detectedUnit != null && detectedUnit.TeamID != _teamID && !_attackingEnemiesDic.ContainsKey(detectedUnit.UnitID))
             {
                 _attackingEnemiesDic.Add(detectedUnit.UnitID, detectedUnit);
                 Agent unitAgent = detectedUnit.GetComponent<Agent>();
-                if (unitAgent != null)
+                if(unitAgent != null)
                 {
+                    unitAgent.Crystal = this;
                     unitAgent.GetControllingMachine.ChangeState(UnitCommand.attack);
                 }
             }
@@ -110,13 +128,13 @@ namespace Prototype
 
         private void OnTriggerExit(Collider other)
         {
+            Debug.Log("detriggered...");
             Unit detectedUnit = other.GetComponent<Unit>();
-            if (detectedUnit != null && detectedUnit.TeamID != _teamID && _attackingEnemiesDic.ContainsKey(detectedUnit.UnitID))
+            if(detectedUnit != null && detectedUnit.TeamID != _teamID && _attackingEnemiesDic.ContainsKey(detectedUnit.UnitID))
             {
                 _attackingEnemiesDic.Remove(detectedUnit.UnitID);
             }
         }
-
         #endregion
     }
 }

@@ -6,7 +6,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Prototype
 {
-    public enum UnitCommand { none = 0, build = 1, attack = 2, move = 3 }
+    public enum UnitCommand { none = 0, build = 1, attack = 2, move = 3, conquer = 4 }
     public class StateMachine : MonoBehaviour
     {
         #region Variables / Properties
@@ -15,7 +15,14 @@ namespace Prototype
 
         private State _currentState;
         private State _nextState;
-        public State SetNextState { set { _nextState = value; } }
+        public State SetNextState
+        {
+            set
+            {
+                _nextState = value;
+                ChangeState(_nextState.UnitCommand);
+            }
+        }
 
         #endregion
 
@@ -31,7 +38,7 @@ namespace Prototype
         public void InitStateMachine()
         {
             //Debug.Log($"Ma component {GetComponent<Agent>()}");
-            if (this.GetComponent<Agent>() != null)
+            if(this.GetComponent<Agent>() != null)
             {
                 _currentState = new IdleState(this.GetComponent<Agent>(), UnitCommand.none);
                 _nextState = _currentState;
@@ -43,10 +50,10 @@ namespace Prototype
         }
         public void ChangeState(UnitCommand newCommand)
         {
-            if (_currentState != null)
+            if(_currentState != null)
             {
                 _currentState.UnitCommand = newCommand;
-                if (_nextState != _currentState)
+                if(_nextState != _currentState)
                 {
                     _currentState = _nextState;
                 }

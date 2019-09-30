@@ -12,7 +12,7 @@ namespace Prototype
         protected Substates currentSubstate;
         protected UnitCommand _actualUnitCommand;
         protected UnitCommand _newUnitCommand;
-        public UnitCommand UnitCommand { set { _newUnitCommand = value; } }
+        public UnitCommand UnitCommand { get { return _newUnitCommand; } set { _newUnitCommand = value; } }
 
         public State()
         {
@@ -28,12 +28,20 @@ namespace Prototype
 
         public virtual void StateUpdate()
         {
-            switch (currentSubstate)
+            switch(currentSubstate)
             {
-                case Substates.StateEnter: OnStateEnter(); break;
-                case Substates.StateStay: OnStateStay(); break;
-                case Substates.StateExit: OnStateExit(); break;
-                default: Debug.Log($"That didn't work as expected!"); break;
+                case Substates.StateEnter:
+                    OnStateEnter();
+                    break;
+                case Substates.StateStay:
+                    OnStateStay();
+                    break;
+                case Substates.StateExit:
+                    OnStateExit();
+                    break;
+                default:
+                    Debug.Log($"That didn't work as expected!");
+                    break;
             }
         }
 
@@ -46,7 +54,7 @@ namespace Prototype
         protected virtual void OnStateStay()
         {
             //Debug.Log($"StateStayBool {_newUnitCommand != _actualUnitCommand}");
-            if (_newUnitCommand != _actualUnitCommand)
+            if(_newUnitCommand != _actualUnitCommand)
             {
                 //Debug.Log($"Substate before Change {currentSubstate}");
                 currentSubstate = Substates.StateExit;
@@ -57,13 +65,27 @@ namespace Prototype
         protected virtual void OnStateExit()
         {
             //Debug.Log($"Ne Command int {(int)_newUnitCommand}");
-            switch ((int)_newUnitCommand)
+            switch((int)_newUnitCommand)
             {
-                case 0: _agent.GetControllingMachine.SetNextState = new IdleState(_agent, _newUnitCommand); break;
-                case 1: _agent.GetControllingMachine.SetNextState = new BuildState(_agent, _newUnitCommand); break;
-                case 2: _agent.GetControllingMachine.SetNextState = new AttackState(_agent, _newUnitCommand); break;
-                case 3: _agent.GetControllingMachine.SetNextState = new MoveState(_agent, _newUnitCommand); break;
-                default: Debug.Log("new idle"); _agent.GetControllingMachine.SetNextState = new IdleState(_agent, _newUnitCommand); break;
+                case 0:
+                    _agent.GetControllingMachine.SetNextState = new IdleState(_agent, _newUnitCommand);
+                    break;
+                case 1:
+                    _agent.GetControllingMachine.SetNextState = new BuildState(_agent, _newUnitCommand);
+                    break;
+                case 2:
+                    _agent.GetControllingMachine.SetNextState = new AttackState(_agent, _newUnitCommand, _agent.Crystal);
+                    break;
+                case 3:
+                    _agent.GetControllingMachine.SetNextState = new MoveState(_agent, _newUnitCommand);
+                    break;
+                case 4:
+                    _agent.GetControllingMachine.SetNextState = new ConquerState(_agent, _newUnitCommand, _agent.Crystal);
+                    break;
+                default:
+                    Debug.Log("new idle");
+                    _agent.GetControllingMachine.SetNextState = new IdleState(_agent, _newUnitCommand);
+                    break;
             }
         }
     }

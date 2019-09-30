@@ -15,6 +15,7 @@ namespace Prototype
         StateMachine _controllingMachine;
         public StateMachine GetControllingMachine { get { return _controllingMachine; } }
         public Vector3 Target { get { return _target; } set { _target = value; } }
+        public Crystal Crystal { get; set; }
 
         #endregion
 
