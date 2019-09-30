@@ -18,6 +18,7 @@ namespace Prototype
 
         private bool _isBase = false;
         private bool _isSpawning;
+        private Dictionary<UnitID, Unit> _attackingEnemiesDic;
 
         public byte _GetTeamID { get { return _teamID; } }
 
@@ -31,6 +32,7 @@ namespace Prototype
         private void Start()
         {
             Unit.Data = _myData;
+            _attackingEnemiesDic = new Dictionary<UnitID, Unit>();
             _currentHealth = _maxHealth;
             _isSpawning = true;
             StartCoroutine(Spawning());
@@ -57,6 +59,7 @@ namespace Prototype
         {
             Instantiate(unitPrefab.gameObject);
         }
+
 
         public void ConquerCrystal(byte conquerPoints, byte teamID)
         {
@@ -88,6 +91,29 @@ namespace Prototype
                     _teamID = 0;
                     _isSpawning = false;
                 }
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            Unit detectedUnit = other.GetComponent<Unit>();
+            if (detectedUnit != null && detectedUnit.TeamID != _teamID && !_attackingEnemiesDic.ContainsKey(detectedUnit.UnitID))
+            {
+                _attackingEnemiesDic.Add(detectedUnit.UnitID, detectedUnit);
+                Agent unitAgent = detectedUnit.GetComponent<Agent>();
+                if (unitAgent != null)
+                {
+                    unitAgent.GetControllingMachine.ChangeState(UnitCommand.attack);
+                }
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            Unit detectedUnit = other.GetComponent<Unit>();
+            if (detectedUnit != null && detectedUnit.TeamID != _teamID && _attackingEnemiesDic.ContainsKey(detectedUnit.UnitID))
+            {
+                _attackingEnemiesDic.Remove(detectedUnit.UnitID);
             }
         }
 

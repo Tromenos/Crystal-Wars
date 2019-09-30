@@ -9,6 +9,9 @@ namespace Prototype
         public static UnitData Data;
         private byte _hp;
         private byte _bp;
+        private ulong _id;
+        public byte TeamID => Data.TeamID;
+        public UnitID UnitID => new UnitID(_id, TeamID);
 
         private Coroutine _routine;
 
@@ -18,9 +21,14 @@ namespace Prototype
             TakeDamage(Data.AP);
         }
 
+        public void Attack(Crystal target)
+        {
+            target.TakeDamage(Data.AP);
+        }
+
         public void TakeDamage(byte value)
         {
-            if(value >= _hp)
+            if (value >= _hp)
                 Die();
             else
                 _hp -= value;
@@ -38,14 +46,14 @@ namespace Prototype
 
         public void MoveTo(Vector3 position)
         {
-            if(_routine != null)
+            if (_routine != null)
                 StopCoroutine(_routine);
             _routine = StartCoroutine(CoroutineMoveTo(position));
         }
 
         private IEnumerator CoroutineMoveTo(Vector3 position)
         {
-            while((transform.position - position).magnitude >= 0.1f)
+            while ((transform.position - position).magnitude >= 0.1f)
             {
                 yield return new WaitForEndOfFrame();
                 Move((position - transform.position).normalized);
